@@ -6,7 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.shopping.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
+
+import javax.jws.HandlerChain;
 
 /**
  * <p>
@@ -19,6 +23,8 @@ import lombok.Data;
 @Data
 @ApiModel(description = "用户角色")
 @TableName("admin_role")
+@Accessors(chain = true)
+@Builder
 public class AdminRole extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;

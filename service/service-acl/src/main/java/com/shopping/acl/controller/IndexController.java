@@ -23,7 +23,7 @@ public class IndexController {
      * 1、请求登陆的login
      */
     @ApiOperation("登录")
-    @PostMapping("login")
+    @PostMapping("/login")
     public Result login() {
         Map<String,Object> map = new HashMap<>();
         map.put("token","admin-token");
@@ -34,7 +34,7 @@ public class IndexController {
      * 2 获取用户信息 get info
      */
     @ApiOperation("获取用户信息")
-    @GetMapping("info")
+    @GetMapping("/info")
     public Result info(){
         Map<String,Object> map = new HashMap<>();
         map.put("name","atguigu");
@@ -46,7 +46,7 @@ public class IndexController {
      * 3 退出 logout
      */
     @ApiOperation("退出")
-    @PostMapping("logout")
+    @PostMapping("/logout")
     public Result logout(){
         return Result.ok(null);
     }
