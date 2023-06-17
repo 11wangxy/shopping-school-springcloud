@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     //自定义异常处理
     @ExceptionHandler(shoppingException.class)
     public Result error(shoppingException exception){
-        return Result.fail(null);
+        return Result.build(null,exception.getCode(),exception.getMessage());
     }
 
 }

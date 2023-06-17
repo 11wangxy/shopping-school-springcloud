@@ -8,7 +8,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Wang Xiaoyi
@@ -48,6 +50,21 @@ public class PermissionController {
     @DeleteMapping("/remove/{id}")
     public Result delete(@PathVariable Long id){
         permissionService.removeChildById(id);
+        return Result.ok(null);
+    }
+
+    @ApiOperation("查询所有权限和已有的权限列表")
+    @GetMapping("/toAssign/{roleId}")
+    public Result getAssign(@PathVariable Long roleId){
+        Map<String,Object> map= permissionService.getAssign(roleId);
+        return Result.ok(map);
+    }
+
+    @ApiOperation("分配权限")
+    @PostMapping("/doAssign")
+    public Result setAssign(@RequestParam Long roleId,
+                            @RequestParam Long[] permissionId){
+        permissionService.setAssign(roleId,permissionId);
         return Result.ok(null);
     }
 }

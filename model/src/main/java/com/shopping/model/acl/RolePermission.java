@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.shopping.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -21,6 +22,7 @@ import lombok.Data;
 @Data
 @ApiModel(description = "角色权限")
 @TableName("role_permission")
+@Builder
 public class RolePermission extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
