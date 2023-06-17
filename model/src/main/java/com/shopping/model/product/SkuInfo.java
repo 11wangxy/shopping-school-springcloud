@@ -6,13 +6,17 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.shopping.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
 @Data
 @ApiModel(description = "SkuInfo")
 @TableName("sku_info")
+@Accessors(chain = true)
+
 public class SkuInfo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

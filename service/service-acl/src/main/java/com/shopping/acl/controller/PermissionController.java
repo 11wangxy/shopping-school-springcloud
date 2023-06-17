@@ -65,6 +65,6 @@ public class PermissionController {
     public Result setAssign(@RequestParam Long roleId,
                             @RequestParam Long[] permissionId){
         permissionService.setAssign(roleId,permissionId);
-        return Result.ok(null);
+        return Result.ok();
     }
 }

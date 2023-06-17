@@ -6,11 +6,14 @@ import com.shopping.model.product.SkuImage;
 import com.shopping.model.product.SkuInfo;
 import com.shopping.model.product.SkuPoster;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 public class SkuInfoVo extends SkuInfo {
 
 	@ApiModelProperty(value = "海报列表")
