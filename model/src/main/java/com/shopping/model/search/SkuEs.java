@@ -1,6 +1,8 @@
 package com.shopping.model.search;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Data
 @Document(indexName = "skues" ,shards = 3,replicas = 1)
+@Accessors(chain = true)
+@Builder
 public class SkuEs {
 
     // 商品Id= skuId
