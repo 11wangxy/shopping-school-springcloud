@@ -34,5 +34,4 @@ public class SkuApiController {
         skuService.lower(skuId);
         return Result.ok();
     }
-
 }

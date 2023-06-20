@@ -62,4 +62,6 @@ public class SkuServiceImpl implements SkuService{
     public void lower(Long skuId) {
         skuRepositry.deleteById(skuId);
     }
+
+
 }

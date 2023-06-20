@@ -4,6 +4,7 @@ import com.shopping.model.product.Category;
 import com.shopping.model.product.SkuInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,4 +21,7 @@ public interface ProductFeignClient {
 
     @GetMapping("/api/product/inner/getSkuInfo/{skuId}")
     public SkuInfo getSkuInfo(@PathVariable("skuId") Long skuId);
+
+    @DeleteMapping("/api/product/inner/removeById/{skuId}")
+    public void delete(@PathVariable("skuId") Long skuId);
 }

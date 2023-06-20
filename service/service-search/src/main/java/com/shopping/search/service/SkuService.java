@@ -12,4 +12,5 @@ public interface SkuService{
     void upperSku(Long skuId);
 
     void lower(Long skuId);
+
 }

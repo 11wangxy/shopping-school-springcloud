@@ -10,6 +10,7 @@
         <module name="service-product-client" />
         <module name="service-product" />
         <module name="service-sys" />
+        <module name="rabbitmq-utils" />
         <module name="service-utils" />
         <module name="service-search" />
         <module name="common-utils" />
@@ -22,6 +23,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common-utils" options="-parameters" />
       <module name="model" options="-parameters" />
+      <module name="rabbitmq-utils" options="-parameters" />
       <module name="service" options="" />
       <module name="service-acl" options="-parameters" />
       <module name="service-client" options="" />

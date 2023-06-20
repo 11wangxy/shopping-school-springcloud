@@ -3,13 +3,13 @@ package com.shopping.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.shopping.model.base.BaseEntity;
 import com.shopping.model.product.SkuAttrValue;
 import com.shopping.model.product.SkuImage;
 import com.shopping.model.product.SkuInfo;
 import com.shopping.model.product.SkuPoster;
+import com.shopping.mq.constant.MqConst;
+import com.shopping.mq.service.RabbitService;
 import com.shopping.product.mapper.SkuInfoMapper;
 import com.shopping.product.service.SkuAttrValueService;
 import com.shopping.product.service.SkuImageService;
@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
 
+
 /**
  * <p>
  * sku信息 服务实现类
@@ -37,17 +38,24 @@ import java.util.List;
  */
 @Service
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implements SkuInfoService {
-
     @Resource
     private SkuImageService skuImagesService;
     @Resource
     private SkuAttrValueService skuAttrValueService;
     @Resource
     private SkuPosterService skuPosterService;
-
+    @Resource
+    private RabbitService rabbitService;
     @Resource
     private SkuInfoMapper skuInfoMapper;
 
+    /**
+     * 分页+条件查询
+     * @param page
+     * @param limit
+     * @param skuInfoQueryVo
+     * @return
+     */
     @Override
     public IPage<SkuInfo> selectPage(Long page, Long limit, SkuInfoQueryVo skuInfoQueryVo) {
         Page<SkuInfo> pageParam = new Page<>(page, limit);
@@ -72,7 +80,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
     }
 
     /**
-     * 添加sku
+     * 添加sku，分为三张表数据库分别保存
      * @param skuInfoVo
      */
     @Transactional(rollbackFor = Exception.class)
@@ -86,8 +94,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
         //保存sku海报
         List<SkuPoster> skuPosterList = skuInfoVo.getSkuPosterList();
-        if(!CollectionUtils.isEmpty(skuPosterList)) {
-            for(SkuPoster skuPoster : skuPosterList) {
+        if (!CollectionUtils.isEmpty(skuPosterList)) {
+            for (SkuPoster skuPoster : skuPosterList) {
                 skuPoster.setSkuId(skuInfo.getId());
             }
             skuPosterService.saveBatch(skuPosterList);
@@ -95,9 +103,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
         //保存sku图片
         List<SkuImage> skuImagesList = skuInfoVo.getSkuImagesList();
-        if(!CollectionUtils.isEmpty(skuImagesList)) {
+        if (!CollectionUtils.isEmpty(skuImagesList)) {
 
-            for(SkuImage skuImages : skuImagesList) {
+            for (SkuImage skuImages : skuImagesList) {
                 skuImages.setSkuId(skuInfo.getId());
 
             }
@@ -106,9 +114,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
         //保存sku平台属性
         List<SkuAttrValue> skuAttrValueList = skuInfoVo.getSkuAttrValueList();
-        if(!CollectionUtils.isEmpty(skuAttrValueList)) {
+        if (!CollectionUtils.isEmpty(skuAttrValueList)) {
 
-            for(SkuAttrValue skuAttrValue : skuAttrValueList) {
+            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
                 skuAttrValue.setSkuId(skuInfo.getId());
 
             }
@@ -121,47 +129,53 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         return getSkuInfoDB(skuId);
     }
 
+    /**
+     * 更新商品，先删除原来的数据，再进行添加，这个操作也是分成对三张表分别操作
+     * @param skuInfoVo
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateSkuInfo(SkuInfoVo skuInfoVo) {
         Long id = skuInfoVo.getId();
         //更新sku信息
         this.updateById(skuInfoVo);
-
         //删除sku海报
         skuPosterService.remove(new LambdaQueryWrapper<SkuPoster>().eq(SkuPoster::getSkuId, id));
         //保存sku海报
         List<SkuPoster> skuPosterList = skuInfoVo.getSkuPosterList();
-        if(!CollectionUtils.isEmpty(skuPosterList)) {
-            for(SkuPoster skuPoster : skuPosterList) {
+        if (!CollectionUtils.isEmpty(skuPosterList)) {
+            for (SkuPoster skuPoster : skuPosterList) {
                 skuPoster.setSkuId(id);
             }
             skuPosterService.saveBatch(skuPosterList);
         }
-
         //删除sku图片
         skuImagesService.remove(new LambdaQueryWrapper<SkuImage>().eq(SkuImage::getSkuId, id));
         //保存sku图片
         List<SkuImage> skuImagesList = skuInfoVo.getSkuImagesList();
-        if(!CollectionUtils.isEmpty(skuImagesList)) {
-            for(SkuImage skuImages : skuImagesList) {
+        if (!CollectionUtils.isEmpty(skuImagesList)) {
+            for (SkuImage skuImages : skuImagesList) {
                 skuImages.setSkuId(id);
             }
             skuImagesService.saveBatch(skuImagesList);
         }
-
         //删除sku平台属性
         skuAttrValueService.remove(new LambdaQueryWrapper<SkuAttrValue>().eq(SkuAttrValue::getSkuId, id));
         //保存sku平台属性
         List<SkuAttrValue> skuAttrValueList = skuInfoVo.getSkuAttrValueList();
-        if(!CollectionUtils.isEmpty(skuAttrValueList)) {
-            for(SkuAttrValue skuAttrValue : skuAttrValueList) {
+        if (!CollectionUtils.isEmpty(skuAttrValueList)) {
+            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
                 skuAttrValue.setSkuId(id);
             }
             skuAttrValueService.saveBatch(skuAttrValueList);
         }
     }
 
+    /**
+     * 更新发布状态
+     * @param skuId
+     * @param status
+     */
     @Override
     public void check(Long skuId, Integer status) {
         // 更改发布状态
@@ -170,18 +184,25 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         baseMapper.updateById(skuInfo);
     }
 
+    /**
+     * 发布商品，通过消息队列rabbitmq发送消息到es
+     * @param skuId
+     * @param status
+     */
     @Override
     public void publish(Long skuId, Integer status) {
-        if(status == 1) {
+        if (status == 1) {
             SkuInfo skuInfo = baseMapper.selectById(skuId);
             skuInfo.setPublishStatus(1);
             baseMapper.updateById(skuInfo);
-            //TODO 商品上架 后续会完善：发送mq消息更新es数据
+            //商品上架 后续会完善：发送mq消息更新es数据
+            rabbitService.sendMsg(MqConst.EXCHANGE_GOODS_DIRECT, MqConst.ROUTING_GOODS_UPPER, skuId);
         } else {
             SkuInfo skuInfo = baseMapper.selectById(skuId);
             skuInfo.setPublishStatus(0);
             baseMapper.updateById(skuInfo);
-            //TODO 商品下架 后续会完善：发送mq消息更新es数据
+            // 商品下架 后续会完善：发送mq消息更新es数据
+            rabbitService.sendMsg(MqConst.EXCHANGE_GOODS_DIRECT, MqConst.ROUTING_GOODS_LOWER, skuId);
         }
     }
 
@@ -192,13 +213,34 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         baseMapper.updateById(skuInfo);
     }
 
+    /**
+     * 删除数据库时同时删除ES中的数据
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean removeWithES(Long id) {
+        Integer publishStatus = baseMapper.selectById(id).getPublishStatus();
+        if (publishStatus==0){
+            baseMapper.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 
+
+    /**
+     * 更新时进行数据库回显
+     * @param skuId
+     * @return
+     */
     private SkuInfoVo getSkuInfoDB(Long skuId) {
         SkuInfoVo skuInfoVo = new SkuInfoVo();
 
         //根据id查询基本信息
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
-        //TODO skuImagesService  skuPosterService  skuAttrValueService分别添加方法
+        //skuImagesService  skuPosterService  skuAttrValueService分别添加方法
         //根据id查询图片商品列表
         List<SkuImage> skuImageList = skuImagesService.findBySkuId(skuId);
         //根据id查询商品海报

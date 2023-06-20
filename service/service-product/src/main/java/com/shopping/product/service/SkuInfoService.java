@@ -30,4 +30,6 @@ public interface SkuInfoService extends IService<SkuInfo> {
     void publish(Long skuId, Integer status);
 
     void isNewPerson(Long skuId, Integer status);
+
+    boolean removeWithES(Long id);
 }

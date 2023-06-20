@@ -1,5 +1,6 @@
 package com.shopping.product.Api;
 
+import com.shopping.common.result.Result;
 import com.shopping.model.product.Category;
 import com.shopping.model.product.SkuInfo;
 import com.shopping.product.service.CategoryService;
@@ -27,14 +28,18 @@ public class ProductInnerController {
     private SkuInfoService skuInfoService;
 
     @ApiOperation(value = "根据分类id获取分类信息")
-    @GetMapping("inner/getCategory/{categoryId}")
+    @GetMapping("/inner/getCategory/{categoryId}")
     public Category getCategory(@PathVariable Long categoryId) {
         return categoryService.getById(categoryId);
     }
 
     @ApiOperation(value = "根据skuId获取sku信息")
-    @GetMapping("inner/getSkuInfo/{skuId}")
+    @GetMapping("/inner/getSkuInfo/{skuId}")
     public SkuInfo getSkuInfo(@PathVariable Long skuId) {
         return skuInfoService.getById(skuId);
     }
+
+    @ApiOperation(value = "根据SkuId删除sku信息")
+    @DeleteMapping("/inner/removeById/{skuId}")
+    public void delete(@PathVariable Long skuId){skuInfoService.getById(skuId);}
 }

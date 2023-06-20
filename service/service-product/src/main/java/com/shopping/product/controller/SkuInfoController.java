@@ -67,8 +67,11 @@ public class SkuInfoController {
     @ApiOperation(value = "删除")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
-        skuInfoService.removeById(id);
-        return Result.ok();
+        boolean b = skuInfoService.removeWithES(id);
+        if (b) {
+            return Result.ok();
+        }
+        return Result.fail();
     }
 
     @ApiOperation(value = "根据id列表删除")
