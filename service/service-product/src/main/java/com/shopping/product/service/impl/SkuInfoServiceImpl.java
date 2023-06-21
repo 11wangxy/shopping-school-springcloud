@@ -229,6 +229,18 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         return false;
     }
 
+    @Override
+    public List<SkuInfo> findSkuList(List<Long> skuIdList) {
+        return baseMapper.selectBatchIds(skuIdList);
+    }
+
+    @Override
+    public List<SkuInfo> findByKeyword(String keyword) {
+        return baseMapper.selectList(
+                new LambdaQueryWrapper<SkuInfo>().like(SkuInfo::getSkuName, keyword)
+        );
+    }
+
 
     /**
      * 更新时进行数据库回显

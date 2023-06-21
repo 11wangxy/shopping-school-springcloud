@@ -6,12 +6,14 @@ import com.shopping.model.activity.ActivitySku;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Data
 @ApiModel(description = "活动规则")
+@Accessors(chain = true)
 public class ActivityRuleVo implements Serializable {
    
    private static final long serialVersionUID = 1L;

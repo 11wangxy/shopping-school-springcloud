@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author: Wang Xiaoyi
@@ -27,19 +28,25 @@ public class ProductInnerController {
     @Resource
     private SkuInfoService skuInfoService;
 
-    @ApiOperation(value = "根据分类id获取分类信息")
+
     @GetMapping("/inner/getCategory/{categoryId}")
     public Category getCategory(@PathVariable Long categoryId) {
         return categoryService.getById(categoryId);
     }
 
-    @ApiOperation(value = "根据skuId获取sku信息")
+
     @GetMapping("/inner/getSkuInfo/{skuId}")
     public SkuInfo getSkuInfo(@PathVariable Long skuId) {
         return skuInfoService.getById(skuId);
     }
 
-    @ApiOperation(value = "根据SkuId删除sku信息")
-    @DeleteMapping("/inner/removeById/{skuId}")
-    public void delete(@PathVariable Long skuId){skuInfoService.getById(skuId);}
+    @PostMapping("/inner/findSkuInfoList")
+    public List<SkuInfo> findSkuInfoList(@RequestBody List<Long> skuIdList) {
+        return skuInfoService.findSkuList(skuIdList);
+    }
+
+    @GetMapping("/inner/findByKeyword/{keyword}")
+    public List<SkuInfo> findByKeyword(@PathVariable String keyword) {
+        return skuInfoService.findByKeyword(keyword);
+    }
 }

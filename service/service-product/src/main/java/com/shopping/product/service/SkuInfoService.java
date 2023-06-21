@@ -7,6 +7,8 @@ import com.shopping.model.product.SkuInfo;
 import com.shopping.vo.product.SkuInfoQueryVo;
 import com.shopping.vo.product.SkuInfoVo;
 
+import java.util.List;
+
 /**
  * <p>
  * sku信息 服务类
@@ -32,4 +34,8 @@ public interface SkuInfoService extends IService<SkuInfo> {
     void isNewPerson(Long skuId, Integer status);
 
     boolean removeWithES(Long id);
+
+    List<SkuInfo> findByKeyword(String keyword);
+
+    List<SkuInfo> findSkuList(List<Long> skuIdList);
 }
