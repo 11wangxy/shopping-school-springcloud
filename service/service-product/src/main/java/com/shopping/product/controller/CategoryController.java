@@ -24,8 +24,8 @@ import java.util.List;
  * @since 2023-06-17
  */
 @Api(tags = "商品分类管理")
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping(value="/admin/product/category")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class CategoryController {

@@ -22,9 +22,10 @@ import java.util.Queue;
  * @description: shopping-parent 用户表操作
  */
 @Api(tags = "角色接口")
+@CrossOrigin
 @RestController
 @RequestMapping("/admin/acl/role")
-@CrossOrigin
+
 public class RoleController {
 
     @Resource

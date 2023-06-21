@@ -21,9 +21,9 @@ import java.util.List;
  * @since 2023-06-17
  */
 @Api(value = "Attr管理", tags = "平台属性管理")
+@CrossOrigin
 @RestController
 @RequestMapping(value="/admin/product/attr")
-@CrossOrigin
 public class AttrController {
 
     @Autowired

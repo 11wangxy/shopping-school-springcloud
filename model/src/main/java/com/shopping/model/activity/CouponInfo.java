@@ -8,7 +8,9 @@ import com.shopping.enums.CouponType;
 import com.shopping.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,6 +19,7 @@ import java.util.List;
 @Data
 @ApiModel(description = "CouponInfo")
 @TableName("coupon_info")
+@Accessors(chain = true)
 public class CouponInfo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

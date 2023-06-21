@@ -19,6 +19,9 @@
         <module name="service-acl" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="service-gateway" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -29,6 +32,7 @@
       <module name="service-acl" options="-parameters" />
       <module name="service-activity" options="-parameters" />
       <module name="service-client" options="" />
+      <module name="service-gateway" options="-parameters" />
       <module name="service-product" options="-parameters" />
       <module name="service-product-client" options="-parameters" />
       <module name="service-search" options="-parameters" />

@@ -17,9 +17,9 @@ import java.util.List;
  * @date: 2023-06-19 1:20
  * @description: shopping-parent
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/api/product")
-@CrossOrigin
 @Api(tags = "远程调用根据skuId查询")
 public class ProductInnerController {
     @Resource
@@ -48,5 +48,10 @@ public class ProductInnerController {
     @GetMapping("/inner/findByKeyword/{keyword}")
     public List<SkuInfo> findByKeyword(@PathVariable String keyword) {
         return skuInfoService.findByKeyword(keyword);
+    }
+
+    @PostMapping("/inner/findCategoryList")
+    public List<Category> findCategoryList(@RequestBody List<Long> categoryList) {
+        return categoryService.listByIds(categoryList);
     }
 }

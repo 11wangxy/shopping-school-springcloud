@@ -24,8 +24,9 @@ import java.util.Map;
  * @author Wang Xiaoyi
  * @since 2023-06-21
  */
-@CrossOrigin
+
 @Api(tags = "活动管理")
+@CrossOrigin
 @RestController
 @RequestMapping("/admin/activity/activityInfo")
 public class ActivityInfoController {
