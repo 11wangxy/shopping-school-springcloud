@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
 import com.fasterxml.jackson.databind.ser.std.EnumSerializer;
 import lombok.Getter;
 
-@JSONType(serializer = EnumSerializer.class, deserializer = EnumDeserializer.class, serializeEnumAsJavaBean = true)
+@JSONType(serializer = EnumSerializer.class, deserializer = EnumDeserializer.class, serializeEnumAsJavaBean = false)
 @Getter
 public enum UserType {
     USER(0,"会员"),

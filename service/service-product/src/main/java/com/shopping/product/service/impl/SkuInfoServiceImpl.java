@@ -235,6 +235,17 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
     }
 
     @Override
+    public List<SkuInfo> selectIsNewPersonSkuList() {
+        LambdaQueryWrapper<SkuInfo>  queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SkuInfo::getIsNewPerson, 1);
+        queryWrapper.eq(SkuInfo::getPublishStatus,1);
+        queryWrapper.orderByDesc(SkuInfo::getStock);
+        //只展示库存前三个商品
+        List<SkuInfo> skuInfoList = baseMapper.selectList(queryWrapper).subList(0,3);
+        return skuInfoList;
+    }
+
+    @Override
     public List<SkuInfo> findByKeyword(String keyword) {
         return baseMapper.selectList(
                 new LambdaQueryWrapper<SkuInfo>().like(SkuInfo::getSkuName, keyword)

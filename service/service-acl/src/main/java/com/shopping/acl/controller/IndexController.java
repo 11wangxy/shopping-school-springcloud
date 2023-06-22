@@ -13,11 +13,11 @@ import java.util.Map;
  * @date: 2023-06-16 12:35
  * @description: shopping-parent
  */
-@CrossOrigin
+
 @RestController
 @RequestMapping("/admin/acl/index")
-     //跨域
 @Api(tags = "登录接口")
+@CrossOrigin
 public class IndexController {
 
     /**

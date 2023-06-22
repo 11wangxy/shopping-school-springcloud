@@ -54,4 +54,21 @@ public class ProductInnerController {
     public List<Category> findCategoryList(@RequestBody List<Long> categoryList) {
         return categoryService.listByIds(categoryList);
     }
+
+    //获取所有分类
+    @GetMapping("/inner/findAllCategoryList")
+    public List<Category> findAllCategoryList(){
+        List<Category> list = categoryService.list();
+        return list;
+    }
+
+    /**
+     * 显示新人专享商品
+     * @return
+     */
+    @GetMapping("/inner/findIsNewPersonSkuList")
+    public List<SkuInfo> findIsNewPersonSkuList(){
+        List<SkuInfo> list = skuInfoService.selectIsNewPersonSkuList();
+        return list;
+    }
 }

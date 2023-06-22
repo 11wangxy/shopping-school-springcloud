@@ -7,17 +7,21 @@ import com.shopping.enums.UserType;
 import com.shopping.model.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
 @ApiModel(description = "User")
 @TableName("user")
+@Accessors(chain = true)
+@Builder
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@TableField("user_type")
-	private UserType userType;
+	private Integer userType;
 
 	@ApiModelProperty(value = "会员头像")
 	@TableField("photo_url")

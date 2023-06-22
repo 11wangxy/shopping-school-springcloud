@@ -21,11 +21,11 @@ import java.util.Map;
  * @date: 2023-06-16 17:36
  * @description: shopping-parent
  */
-@CrossOrigin
+
 @RestController
 @Api(tags = "用户管理")
 @RequestMapping("/admin/acl/user")
-
+@CrossOrigin
 public class AdminController {
 
     @Resource

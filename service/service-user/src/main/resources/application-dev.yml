@@ -1,0 +1,37 @@
+server:
+  port: 8206
+
+mybatis-plus:
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+spring:
+  #  数据库连接信息
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shequ-user?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 20030111
+  redis:
+    host: 192.168.111.100
+    port: 6379
+    password: 20030111
+    database: 1
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 100ms
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+wechat:
+  open:
+    # 小程序微信公众平台appId
+    app_id: wx612322c685b479cf
+    # 小程序微信公众平台api秘钥
+    app_secret: a593744c81ec50a5580d525ecc525ac3

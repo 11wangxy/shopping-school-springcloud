@@ -2,7 +2,9 @@ package com.shopping.vo.user;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -13,6 +15,8 @@ import lombok.Data;
  */
 @Data
 @ApiModel(description = "用户地址")
+@Accessors(chain = true)
+@Builder
 public class LeaderAddressVo {
 
 	@ApiModelProperty(value = "用户id")
