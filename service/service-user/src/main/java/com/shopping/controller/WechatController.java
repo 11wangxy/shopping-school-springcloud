@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  * @date: 2023-06-22 19:00
  * @description: shopping-parent
  */
-@CrossOrigin
+
 @RestController
 @Api(tags = "微信登录")
 @RequestMapping("/api/user/weixin")

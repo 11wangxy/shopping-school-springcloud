@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2023-06-17
  */
 @Api(value = "SkuInfo管理", tags = "商品Sku管理")
-@CrossOrigin
+
 @RestController
 @RequestMapping(value="/admin/product/skuInfo")
 public class SkuInfoController {

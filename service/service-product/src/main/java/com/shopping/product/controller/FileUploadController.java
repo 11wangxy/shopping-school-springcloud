@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @description: shopping-parent
  */
 @Api(tags = "上传文件")
-@CrossOrigin
+
 @RestController
 @RequestMapping("admin/product")
 public class FileUploadController {

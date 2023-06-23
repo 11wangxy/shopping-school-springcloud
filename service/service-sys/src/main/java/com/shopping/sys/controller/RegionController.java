@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2023-06-17
  */
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/admin/sys/region")
 @Api(tags = "地区接口")

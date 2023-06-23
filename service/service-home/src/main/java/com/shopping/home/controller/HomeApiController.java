@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Api(tags = "接口首页")
 @RestController
-@CrossOrigin
+
 @RequestMapping("/api/home")
 public class HomeApiController {
     @Resource

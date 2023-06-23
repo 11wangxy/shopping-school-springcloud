@@ -17,7 +17,7 @@ import java.util.List;
  * @date: 2023-06-19 1:20
  * @description: shopping-parent
  */
-@CrossOrigin
+
 @RestController
 @RequestMapping("/api/product")
 @Api(tags = "远程调用根据skuId查询")

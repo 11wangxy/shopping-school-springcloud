@@ -25,7 +25,7 @@ import java.util.Queue;
 
 @RestController
 @RequestMapping("/admin/acl/role")
-@CrossOrigin
+
 public class RoleController {
 
     @Resource

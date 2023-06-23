@@ -22,7 +22,7 @@ import java.util.List;
  * @author Wang Xiaoyi
  * @since 2023-06-17
  */
-@CrossOrigin
+
 @RestController
 @Api(tags = "")
 @RequestMapping("/admin/product/attrGroup")

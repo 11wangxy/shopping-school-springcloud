@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2023-06-17
  */
 
-@CrossOrigin
+
 @RestController
 @Api(tags = "仓库接口")
 @RequestMapping("/admin/sys/ware")

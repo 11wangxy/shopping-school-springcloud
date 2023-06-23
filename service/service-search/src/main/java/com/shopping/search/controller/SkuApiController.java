@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RequestMapping("/api/search/sku")
 @Api(tags = "上下架")
-@CrossOrigin
+
 @RestController
 public class SkuApiController {
     @Resource

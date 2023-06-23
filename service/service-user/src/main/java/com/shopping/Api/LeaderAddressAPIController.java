@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @date: 2023-06-23 1:41
  * @description: shopping-parent
  */
-@CrossOrigin
+
 @Api(tags = "团长接口")
 @RestController
 @RequestMapping("/api/user/leader")

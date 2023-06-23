@@ -25,7 +25,7 @@ import java.util.Map;
  */
 
 @Api(tags = "优惠券管理")
-@CrossOrigin
+
 @RestController
 @RequestMapping("/admin/activity/couponInfo")
 public class CouponInfoController {
