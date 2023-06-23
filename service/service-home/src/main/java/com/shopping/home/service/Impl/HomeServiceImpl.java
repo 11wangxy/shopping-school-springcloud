@@ -7,7 +7,7 @@ import com.shopping.model.product.Category;
 import com.shopping.model.product.SkuInfo;
 import com.shopping.model.search.SkuEs;
 import com.shopping.vo.user.LeaderAddressVo;
-import com.shoppinh.client.search.SkuFeignClient;
+import com.shopping.client.search.SkuFeignClient;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

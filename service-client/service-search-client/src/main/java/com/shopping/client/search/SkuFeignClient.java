@@ -1,4 +1,4 @@
-package com.shoppinh.client.search;
+package com.shopping.client.search;
 
 import com.shopping.model.search.SkuEs;
 import org.springframework.cloud.openfeign.FeignClient;
