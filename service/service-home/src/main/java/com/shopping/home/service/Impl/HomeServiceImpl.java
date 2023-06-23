@@ -5,7 +5,9 @@ import com.shopping.client.user.UserFeignClient;
 import com.shopping.home.service.HomeService;
 import com.shopping.model.product.Category;
 import com.shopping.model.product.SkuInfo;
+import com.shopping.model.search.SkuEs;
 import com.shopping.vo.user.LeaderAddressVo;
+import com.shoppinh.client.search.SkuFeignClient;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +27,8 @@ public class HomeServiceImpl implements HomeService {
     private UserFeignClient userFeignClient;
     @Resource
     private ProductFeignClient productFeignClient;
+    @Resource
+    private SkuFeignClient skuFeignClient;
 
     @Override
     public Map<String, Object> homeData(Long userId) {
@@ -38,9 +42,10 @@ public class HomeServiceImpl implements HomeService {
         //3.通过调用service-product得到新人专享商品
         List<SkuInfo> newPersonSkuInfoList =productFeignClient.findIsNewPersonSkuList();
         map.put("newPersonSkuInfoList",newPersonSkuInfoList);
-        //4.远程调用service-search获取商家的爆款商品
-
+        //4.远程调用service-search获取商家的爆款商品,热门评分降序
+        List<SkuEs> hotSkuList = skuFeignClient.findHotSkuList();
+        map.put("hotSkuList",hotSkuList);
         //5.封装数据
-        return null;
+        return map;
     }
 }

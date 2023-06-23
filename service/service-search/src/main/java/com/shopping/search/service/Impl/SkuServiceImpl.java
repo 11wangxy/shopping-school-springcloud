@@ -8,9 +8,13 @@ import com.shopping.model.search.SkuEs;
 import com.shopping.search.repositry.SkuRepositry;
 import com.shopping.search.service.SkuService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author: Wang Xiaoyi
@@ -63,5 +67,12 @@ public class SkuServiceImpl implements SkuService{
         skuRepositry.deleteById(skuId);
     }
 
-
+    @Override
+    public List<SkuEs> findSkuHotList() {
+        //通过springdata查询返回结果，通过分页实现每页展示10条
+        Pageable pageable = PageRequest.of(0,10);
+        Page<SkuEs> skuEsPage = skuRepositry.findByOrderByHotScoreDesc(pageable);
+        List<SkuEs> content = skuEsPage.getContent();
+        return content;
+    }
 }
