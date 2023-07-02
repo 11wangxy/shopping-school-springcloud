@@ -16,24 +16,24 @@ import java.util.List;
 @FeignClient(value = "service-product")
 public interface ProductFeignClient {
 
-    @GetMapping("/api/product/inner/getCategory/{categoryId}")
+    @GetMapping("/apiFeign/product/inner/getCategory/{categoryId}")
     public Category getCategory(@PathVariable("categoryId") Long categoryId);
 
-    @GetMapping("/api/product/inner/getSkuInfo/{skuId}")
+    @GetMapping("/apiFeign/product/inner/getSkuInfo/{skuId}")
     public SkuInfo getSkuInfo(@PathVariable("skuId") Long skuId);
 
-    @PostMapping("/api/product/inner/findSkuInfoList")
+    @PostMapping("/apiFeign/product/inner/findSkuInfoList")
     public List<SkuInfo> findSkuInfoList(@RequestBody List<Long> skuIdList);
 
-    @GetMapping("/api/product/inner/findByKeyword/{keyword}")
+    @GetMapping("/apiFeign/product/inner/findByKeyword/{keyword}")
     public List<SkuInfo> findByKeyword(@PathVariable String keyword);
 
-    @PostMapping("/api/product/inner/findCategoryList")
+    @PostMapping("/apiFeign/product/inner/findCategoryList")
     public List<Category> findCategoryList(@RequestBody List<Long> categoryList);
 
-    @GetMapping("/api/product/inner/findAllCategoryList")
+    @GetMapping("/apiFeign/product/inner/findAllCategoryList")
     public List<Category> findAllCategoryList();
 
-    @GetMapping("/api/product/inner/findIsNewPersonSkuList")
+    @GetMapping("/apiFeign/product/inner/findIsNewPersonSkuList")
     public List<SkuInfo> findIsNewPersonSkuList();
 }

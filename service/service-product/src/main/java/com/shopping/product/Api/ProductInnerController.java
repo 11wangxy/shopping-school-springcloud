@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/apiFeign/product")
 @Api(tags = "远程调用根据skuId查询")
 public class ProductInnerController {
     @Resource

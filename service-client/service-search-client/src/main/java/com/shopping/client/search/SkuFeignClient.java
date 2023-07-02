@@ -13,6 +13,6 @@ import java.util.List;
  */
 @FeignClient("service-search")
 public interface SkuFeignClient {
-    @GetMapping("/api/search/sku/inner/findHotSkuList")
+    @GetMapping("/apiFeign/search/sku/inner/findHotSkuList")
     public List<SkuEs> findHotSkuList();
 }

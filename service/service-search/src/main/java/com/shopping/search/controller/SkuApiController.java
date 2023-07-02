@@ -15,7 +15,7 @@ import java.util.List;
  * @date: 2023-06-19 1:11
  * @description: shopping-parent
  */
-@RequestMapping("/api/search/sku")
+@RequestMapping("/apiFeign/search/sku")
 @Api(tags = "上下架")
 
 @RestController

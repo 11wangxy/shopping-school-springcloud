@@ -1,5 +1,7 @@
 package com.shopping.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -23,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Resource
     private UserDeliveryMapper userDeliveryMapper;
     @Resource
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
     @Override
     public Map<String, Object> login(String code) {
         //1.得到微信返回的code临时票据
@@ -86,8 +89,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String token = JwtUtils.createToken(user.getId(), user.getNickName());
         //7.获取当前登录的用户信息，放到redis中，设置有效时间
         UserLoginVo userLoginVo = this.getUserLoginVo(user.getId());
-        redisTemplate.opsForValue().set(RedisConst.USER_LOGIN_KEY_PREFIX+user.getId(),
-                userLoginVo, RedisConst.USERKEY_TIMEOUT, TimeUnit.DAYS);
+        Map<String,Object> mapVo = BeanUtil.beanToMap(userLoginVo,new HashMap<>(),
+                                                    CopyOptions.create().setIgnoreNullValue(true)
+                                                            .setFieldValueEditor((name,value)->value.toString()));
+        stringRedisTemplate.opsForHash().putAll(RedisConst.USER_LOGIN_KEY_PREFIX+user.getId(),mapVo);
+        stringRedisTemplate.expire(RedisConst.USER_LOGIN_KEY_PREFIX+user.getId(),RedisConst.USERKEY_TIMEOUT, TimeUnit.DAYS);
         //8.把数据封装进行返回
         Map<String,Object> map = new HashMap<>();
         map.put("user",user);
@@ -111,6 +117,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return userLoginVo;
     }
+
     @Override
     public LeaderAddressVo getLeaderAddressByUserId(Long userId){
         UserDelivery userDelivery = userDeliveryMapper.selectOne(

@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 @Api(tags = "团长接口")
 @RestController
-@RequestMapping("/api/user/leader")
+@RequestMapping("/apiFeign/user/leader")
 
 public class LeaderAddressAPIController {
     @Resource
