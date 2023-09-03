@@ -25,7 +25,7 @@ import java.util.Map;
 @RestController
 @Api(tags = "用户管理")
 @RequestMapping("/admin/acl/user")
-
+@CrossOrigin
 public class AdminController {
 
     @Resource
@@ -35,7 +35,7 @@ public class AdminController {
     private RoleService roleService;
 
     @ApiOperation("角色分页")
-    @GetMapping("/{current}/{limit}")
+    @GetMapping("{limit/{current}/}")
     public Result pageList(@PathVariable Long current,
                            @PathVariable Long limit,
                            AdminQueryVo adminQueryVo) {

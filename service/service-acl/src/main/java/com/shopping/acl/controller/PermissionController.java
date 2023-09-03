@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @Api(tags = "菜单管理")
 @RequestMapping("/admin/acl/permission")
-
+@CrossOrigin
 public class PermissionController {
     @Resource
     private PermissionService permissionService;
